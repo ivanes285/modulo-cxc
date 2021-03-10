@@ -10,7 +10,7 @@ Tomar en cuenta las siguientes consideraciones para importar el proyecto en Ecli
 
 
 # Modulo Cuentas por Cobrar 
-Nuestro grupo está a cargo del módulo numero 6
+Nuestro grupo está a cargo del módulo numero 6 que consiste en Cuentas por Cobrar
 
 # Integrantes:
 - Jessica Coral 
