@@ -62,7 +62,7 @@ public class ManagerSeguridades {
 			administrador.setActivo(true);
 			administrador.setApellidos("admin");
 			administrador.setClave("admin");
-			administrador.setCorreo("admin@minimarketdemo.com");
+			administrador.setCorreo("admin@gmail.com");
 			administrador.setNombres("admin");
 			administrador.setCodigo("admin");
 			mDAO.insertar(administrador);
@@ -73,16 +73,16 @@ public class ManagerSeguridades {
 		SegModulo modulo=new SegModulo();
 		int idSegModuloSeguridades=0;
 		int idSegModuloAuditoria=0;
-		modulo.setNombreModulo("Seguridades");
-		modulo.setRutaAcceso("seguridades/menu");
+		modulo.setNombreModulo("Gestión");
+		modulo.setRutaAcceso("gestion/menu");
 		mDAO.insertar(modulo);
 		idSegModuloSeguridades=modulo.getIdSegModulo();
 		modulo=new SegModulo();
-		modulo.setNombreModulo("AuditorÃ­a");
-		modulo.setRutaAcceso("auditoria/menu");
+		modulo.setNombreModulo("Reporte");
+		modulo.setRutaAcceso("reporte/menu");
 		mDAO.insertar(modulo);
 		idSegModuloAuditoria=modulo.getIdSegModulo();
-		mAuditoria.mostrarLog(getClass(), "inicializarDemo", "MÃ³dulos creados.");
+		mAuditoria.mostrarLog(getClass(), "inicializarDemo", "Módulos creados.");
 		//asignacion de accesos:
 		asignarModulo(idSegUsuarioAdmin, idSegModuloSeguridades);
 		asignarModulo(idSegUsuarioAdmin, idSegModuloAuditoria);
@@ -130,7 +130,7 @@ public class ManagerSeguridades {
     }
     
     public void cerrarSesion(int idSegUsuario) {
-    	mAuditoria.mostrarLog(getClass(), "cerrarSesion", "Cerrar sesiÃ³n usuario: "+idSegUsuario);
+    	mAuditoria.mostrarLog(getClass(), "cerrarSesion", "Cerrar sesión usuario: "+idSegUsuario);
     }
     
     public void accesoNoPermitido(int idSegUsuario,String ruta) {
