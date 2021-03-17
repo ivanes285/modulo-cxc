@@ -21,17 +21,11 @@ public class Deuda implements Serializable {
 	@Column(name="id_deuda", unique=true, nullable=false)
 	private Integer idDeuda;
 
-	@Column(nullable=false, precision=7, scale=2)
-	private BigDecimal mensualidades;
-
 	@Column(name="monto_inicial", nullable=false, precision=7, scale=2)
 	private BigDecimal montoInicial;
 
 	@Column(nullable=false, precision=7, scale=2)
 	private BigDecimal saldo;
-
-	@Column(name="valor_mensual", nullable=false, precision=7, scale=2)
-	private BigDecimal valorMensual;
 
 	//bi-directional many-to-one association to Cliente
 	@OneToMany(mappedBy="deuda")
@@ -48,14 +42,6 @@ public class Deuda implements Serializable {
 		this.idDeuda = idDeuda;
 	}
 
-	public BigDecimal getMensualidades() {
-		return this.mensualidades;
-	}
-
-	public void setMensualidades(BigDecimal mensualidades) {
-		this.mensualidades = mensualidades;
-	}
-
 	public BigDecimal getMontoInicial() {
 		return this.montoInicial;
 	}
@@ -70,14 +56,6 @@ public class Deuda implements Serializable {
 
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
-	}
-
-	public BigDecimal getValorMensual() {
-		return this.valorMensual;
-	}
-
-	public void setValorMensual(BigDecimal valorMensual) {
-		this.valorMensual = valorMensual;
 	}
 
 	public List<Cliente> getClientes() {

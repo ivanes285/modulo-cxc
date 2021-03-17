@@ -20,8 +20,8 @@ public class Pago implements Serializable {
 	@Column(name="id_pago", unique=true, nullable=false)
 	private Integer idPago;
 
-	@Column(nullable=false, length=20)
-	private String estado;
+	@Column(nullable=false)
+	private Boolean estado;
 
 	@Column(nullable=false, precision=7, scale=2)
 	private BigDecimal monto;
@@ -45,11 +45,11 @@ public class Pago implements Serializable {
 		this.idPago = idPago;
 	}
 
-	public String getEstado() {
+	public Boolean getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 
@@ -69,7 +69,7 @@ public class Pago implements Serializable {
 		this.numPago = numPago;
 	}
 
-	public TipoPago getTipoPago() {
+	public TipoPago getTipoPago() {		
 		return this.tipoPago;
 	}
 

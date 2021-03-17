@@ -67,6 +67,37 @@ public class ManagerDAO {
     		
     }
     
+//    public List findAllPagoTipoPago(Class clase,String propiedadOrderBy,boolean ascendente) {
+//    	Query q;
+//    	List listado;
+//    	String sentenciaJPQL;
+//    	if(propiedadOrderBy==null || propiedadOrderBy.length()==0)
+//    		//SELECT *, 
+//    		//(select b.nombre from tipo_pago b where b.id_tipo_pago = a.fk_id_tipo_pago),
+//    		//(select b.descripcion from tipo_pago b where b.id_tipo_pago = a.fk_id_tipo_pago)
+//    		//from pago a
+//    		/**sentenciaJPQL="SELECT o FROM "+clase.getSimpleName()+" o";**/
+//    		q=em.createQuery("SELECT *, "
+//    				+ "    		(select b.nombre from tipo_pago b where b.id_tipo_pago = a.fk_id_tipo_pago),"
+//    				+ "    		(select b.descripcion from tipo_pago b where b.id_tipo_pago = a.fk_id_tipo_pago)"
+//    				+ "    		from pago a;");
+//    	else {
+////    		if(ascendente)
+////    			sentenciaJPQL="SELECT o FROM "+clase.getSimpleName()+" o ORDER BY o."+propiedadOrderBy+" asc";
+////    		else
+////    			sentenciaJPQL="SELECT o FROM "+clase.getSimpleName()+" o ORDER BY o."+propiedadOrderBy+" desc";
+//    		q=em.createQuery("SELECT *, "
+//    				+ "    		(select b.nombre from tipo_pago b where b.id_tipo_pago = a.fk_id_tipo_pago),"
+//    				+ "    		(select b.descripcion from tipo_pago b where b.id_tipo_pago = a.fk_id_tipo_pago)"
+//    				+ "    		from pago a;");
+//    	}
+//    	//q=em.createQuery(sentenciaJPQL);
+//    	listado=q.getResultList();
+//    	System.out.println("Consultados "+clase.getSimpleName()+": "+listado.size() +" objetos.");
+//    	return listado;
+//    		
+//    }
+    
     /**
      * finder Generico que devuelve todas las entidades de una tabla
      * @param clase 
