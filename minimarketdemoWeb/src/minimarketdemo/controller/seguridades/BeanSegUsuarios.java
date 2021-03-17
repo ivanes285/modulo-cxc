@@ -28,6 +28,7 @@ public class BeanSegUsuarios implements Serializable {
 	
 	public String actionMenuUsuarios() {
 		listaUsuarios=managerSeguridades.findAllUsuarios();
+		System.out.println("MENUUSUARIOS");
 		return "usuarios";
 	}
 	

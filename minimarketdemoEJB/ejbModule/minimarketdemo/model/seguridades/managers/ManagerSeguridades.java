@@ -127,7 +127,7 @@ public class ManagerSeguridades {
     	}
     	mAuditoria.mostrarLog(getClass(), "login", "No coincide la clave "+idSegUsuario);
     	throw new Exception("Error en credenciales");
-    }
+    }	
     
     public void cerrarSesion(int idSegUsuario) {
     	mAuditoria.mostrarLog(getClass(), "cerrarSesion", "Cerrar sesión usuario: "+idSegUsuario);
