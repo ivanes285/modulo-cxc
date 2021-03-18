@@ -50,24 +50,21 @@ public class ManagerPago {
     }
     
     public void actualizarPago(Pago edicionPago) throws Exception {
-    	Pago pago=(Pago) mDAO.findById(Pago.class, edicionPago.getIdPago());
+    	Pago pago=(Pago) mDAO.findById(Pago.class, edicionPago.getId());
     	pago.setNumPago(edicionPago.getNumPago());
     	pago.setMonto(edicionPago.getMonto());
-    	pago.setEstado(edicionPago.getEstado());
     	pago.setTipoPago(edicionPago.getTipoPago());
     	mDAO.actualizar(pago);
     }
     
     public void activarDesactivarPago(int idPago) throws Exception {
     	Pago pago=(Pago) mDAO.findById(Pago.class, idPago);    	
-    	pago.setEstado(!pago.getEstado());
-    	System.out.println("activar/desactivar "+pago.getEstado());
     	mDAO.actualizar(pago);
     }
     
     public void eliminarPago(int idPago) throws Exception {
     	Pago pago=(Pago) mDAO.findById(Pago.class, idPago);    	    	
-    	mDAO.eliminar(Pago.class, pago.getIdPago());
+    	mDAO.eliminar(Pago.class, pago.getId());
     }
     
 }

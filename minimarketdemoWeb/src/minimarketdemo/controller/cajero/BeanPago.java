@@ -51,7 +51,6 @@ public class BeanPago implements Serializable {
 	public String actionMenuNuevoPago() {
 		//listaTipo = mTipoPago.findAllTipoPago();
 		nuevoPago = new Pago();
-		nuevoPago.setEstado(true);
 		return "pago_nuevo";
 	}
 
@@ -60,7 +59,6 @@ public class BeanPago implements Serializable {
 			mPago.insertarPago(nuevoPago);
 			listaPago = mPago.findAllPago();
 			nuevoPago = new Pago();
-			nuevoPago.setEstado(true);
 			JSFUtil.crearMensajeINFO("Pago insertado.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());

@@ -2,6 +2,7 @@ package minimarketdemo.model.core.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -20,32 +21,33 @@ public class Cliente implements Serializable {
 	@Column(name="id_cliente", unique=true, nullable=false)
 	private Integer idCliente;
 
-	@Column(nullable=false, length=20)
-	private String apellido;
+	@Column(name="apellido_cliente", nullable=false, length=20)
+	private String apellidoCliente;
 
-	@Column(nullable=false, length=20)
+	@Column(nullable=false, length=10)
 	private String cedula;
 
 	@Column(nullable=false, length=20)
 	private String correo;
 
-	@Column(nullable=false, length=20)
+	@Column(name="deuda_incial", nullable=false, precision=7, scale=2)
+	private BigDecimal deudaIncial;
+
+	@Column(nullable=false, length=50)
 	private String dir;
 
-	@Column(nullable=false, length=20)
-	private String nombre;
+	@Column(name="nombre_cliente", nullable=false, length=20)
+	private String nombreCliente;
 
-	@Column(nullable=false, length=20)
+	@Column(name="saldo_deuda", nullable=false, precision=7, scale=2)
+	private BigDecimal saldoDeuda;
+
+	@Column(nullable=false, length=10)
 	private String telf;
 
-	//bi-directional many-to-one association to Deuda
-	@ManyToOne
-	@JoinColumn(name="fk_id_deuda", nullable=false)
-	private Deuda deuda;
-
-	//bi-directional many-to-one association to Factura
+	//bi-directional many-to-one association to Pago
 	@OneToMany(mappedBy="cliente")
-	private List<Factura> facturas;
+	private List<Pago> pagos;
 
 	public Cliente() {
 	}
@@ -58,12 +60,12 @@ public class Cliente implements Serializable {
 		this.idCliente = idCliente;
 	}
 
-	public String getApellido() {
-		return this.apellido;
+	public String getApellidoCliente() {
+		return this.apellidoCliente;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setApellidoCliente(String apellidoCliente) {
+		this.apellidoCliente = apellidoCliente;
 	}
 
 	public String getCedula() {
@@ -82,6 +84,14 @@ public class Cliente implements Serializable {
 		this.correo = correo;
 	}
 
+	public BigDecimal getDeudaIncial() {
+		return this.deudaIncial;
+	}
+
+	public void setDeudaIncial(BigDecimal deudaIncial) {
+		this.deudaIncial = deudaIncial;
+	}
+
 	public String getDir() {
 		return this.dir;
 	}
@@ -90,12 +100,20 @@ public class Cliente implements Serializable {
 		this.dir = dir;
 	}
 
-	public String getNombre() {
-		return this.nombre;
+	public String getNombreCliente() {
+		return this.nombreCliente;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
+	}
+
+	public BigDecimal getSaldoDeuda() {
+		return this.saldoDeuda;
+	}
+
+	public void setSaldoDeuda(BigDecimal saldoDeuda) {
+		this.saldoDeuda = saldoDeuda;
 	}
 
 	public String getTelf() {
@@ -106,34 +124,26 @@ public class Cliente implements Serializable {
 		this.telf = telf;
 	}
 
-	public Deuda getDeuda() {
-		return this.deuda;
+	public List<Pago> getPagos() {
+		return this.pagos;
 	}
 
-	public void setDeuda(Deuda deuda) {
-		this.deuda = deuda;
+	public void setPagos(List<Pago> pagos) {
+		this.pagos = pagos;
 	}
 
-	public List<Factura> getFacturas() {
-		return this.facturas;
+	public Pago addPago(Pago pago) {
+		getPagos().add(pago);
+		pago.setCliente(this);
+
+		return pago;
 	}
 
-	public void setFacturas(List<Factura> facturas) {
-		this.facturas = facturas;
-	}
+	public Pago removePago(Pago pago) {
+		getPagos().remove(pago);
+		pago.setCliente(null);
 
-	public Factura addFactura(Factura factura) {
-		getFacturas().add(factura);
-		factura.setCliente(this);
-
-		return factura;
-	}
-
-	public Factura removeFactura(Factura factura) {
-		getFacturas().remove(factura);
-		factura.setCliente(null);
-
-		return factura;
+		return pago;
 	}
 
 }
