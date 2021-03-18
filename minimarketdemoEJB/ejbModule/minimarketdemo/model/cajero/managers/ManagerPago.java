@@ -45,28 +45,29 @@ public class ManagerPago {
      * @param nuevoTipoPago
      * @throws Exception
      */
-    public void insertarTipoPago(TipoPago nuevoTipoPago) throws Exception {
-    	mDAO.insertar(nuevoTipoPago);
+    public void insertarPago(Pago nuevoPago) throws Exception {
+    	mDAO.insertar(nuevoPago);
     }
     
-    public void actualizarTipoPago(TipoPago edicionTipoPago) throws Exception {
-    	TipoPago tipo=(TipoPago) mDAO.findById(TipoPago.class, edicionTipoPago.getIdTipoPago());
-    	tipo.setNombre(edicionTipoPago.getNombre());
-    	tipo.setDescripcion(edicionTipoPago.getDescripcion());
-    	tipo.setEstado(edicionTipoPago.getEstado());
-    	mDAO.actualizar(tipo);
+    public void actualizarPago(Pago edicionPago) throws Exception {
+    	Pago pago=(Pago) mDAO.findById(Pago.class, edicionPago.getIdPago());
+    	pago.setNumPago(edicionPago.getNumPago());
+    	pago.setMonto(edicionPago.getMonto());
+    	pago.setEstado(edicionPago.getEstado());
+    	pago.setTipoPago(edicionPago.getTipoPago());
+    	mDAO.actualizar(pago);
     }
     
-    public void activarDesactivarTipo(int idTipoPago) throws Exception {
-    	TipoPago tipo=(TipoPago) mDAO.findById(TipoPago.class, idTipoPago);    	
-    	tipo.setEstado(!tipo.getEstado());
-    	System.out.println("activar/desactivar "+tipo.getEstado());
-    	mDAO.actualizar(tipo);
+    public void activarDesactivarPago(int idPago) throws Exception {
+    	Pago pago=(Pago) mDAO.findById(Pago.class, idPago);    	
+    	pago.setEstado(!pago.getEstado());
+    	System.out.println("activar/desactivar "+pago.getEstado());
+    	mDAO.actualizar(pago);
     }
     
-    public void eliminarTipo(int idTipoPago) throws Exception {
-    	TipoPago tipo=(TipoPago) mDAO.findById(TipoPago.class, idTipoPago);    	    	
-    	mDAO.eliminar(TipoPago.class, tipo.getIdTipoPago());
+    public void eliminarPago(int idPago) throws Exception {
+    	Pago pago=(Pago) mDAO.findById(Pago.class, idPago);    	    	
+    	mDAO.eliminar(Pago.class, pago.getIdPago());
     }
     
 }

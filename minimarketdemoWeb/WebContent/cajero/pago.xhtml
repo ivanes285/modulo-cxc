@@ -18,8 +18,8 @@
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
-			<p:menuitem value="Nuevo Tipo de Pago" icon="pi pi-user-plus"
-				action="#{beanTipoPago.actionMenuNuevoTipoPago()}" />
+			<p:menuitem value="Nuevo Pago" icon="pi pi-user-plus"
+				action="#{beanPago.actionMenuNuevoPago()}"/>
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
@@ -45,26 +45,30 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{p.monto}" />
 				</p:column>
-				<p:column headerText="ESTADO" filterBy="#{p.estado}"
+				<p:column headerText="NOMBRE" filterBy="#{p.tipoPago.nombre}"
 					filterMatchMode="contains">
-					<h:outputText value="#{p.estado}" />
+					<h:outputText value="#{p.tipoPago.nombre}" />
+				</p:column>		
+				<p:column headerText="DESCRIPCIÓN" filterBy="#{p.tipoPago.descripcion}"
+					filterMatchMode="contains">
+					<h:outputText value="#{p.tipoPago.descripcion}" />
 				</p:column>	
-				<p:column headerText="FORANEA" filterBy="#{p.tipoPago}"
+				<p:column headerText="ESTADO TIPO PAGO" filterBy="#{p.tipoPago.estado}"
 					filterMatchMode="contains">
-					<h:outputText value="#{p.tipoPago}" />
-				</p:column>			
+					<h:outputText value="#{p.tipoPago.estado}" />
+				</p:column>
 				<p:column headerText="OPCIONES">
 					<p:commandButton icon="pi pi-check-circle"
 						title="activar/desactivar" styleClass="ui-button-warning"
 						update="@form"
-						actionListener="#{beanTipoPago.actionListenerActivarDesactivarTipoPago(t.idTipoPago)}" />
+						actionListener="#{beanPago.actionListenerActivarDesactivarPago()}" />
 					<p:commandButton icon="pi pi-pencil" title="editar"
-						action="#{beanTipoPago.actionSeleccionarEdicionTipo(t)}" />
+						action="#{beanPago.actionSeleccionarEdicionPago(p)}" />
 					<p:commandButton icon="pi pi-times-circle" title="eliminar"
 						styleClass="ui-button-danger" update="@form"
-						actionListener="#{beanTipoPago.actionListenerEliminarTipo(t.idTipoPago)}">
+						actionListener="#{beanPago.actionListenerEliminarPago(p.idPago)}">
 						<p:confirm header="Confirmación"
-							message="¿Desea borrar este tipo de pago?" icon="pi pi-info-circle" />
+							message="¿Desea borrar este pago?" icon="pi pi-info-circle" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>

@@ -20,6 +20,7 @@ public class BeanTipoPago implements Serializable {
 	private ManagerTipoPago mTipoPago;
 
 	private List<TipoPago> listaTipo;
+	private int idTipoPagoSeleccionado;
 	private TipoPago nuevoTipo;
 	private TipoPago edicionTipo;
 
@@ -32,7 +33,16 @@ public class BeanTipoPago implements Serializable {
 		System.out.println("MENUTIPOPAGO");
 		return "tipopago";
 	}
+	
+	public void LlenarMenuTipoPago() {
+		listaTipo = mTipoPago.findAllTipoPago();
+		System.out.println("LISTA LLENADA");
+	}
 
+//	public void actionListenerSeleccionarTipoPago() {
+//		listaTipo=ManagerTipoPago;
+//	}
+	
 	public void actionListenerActivarDesactivarTipoPago(int idTipoPago) {
 		try {
 			mTipoPago.activarDesactivarTipo(idTipoPago);
@@ -112,6 +122,14 @@ public class BeanTipoPago implements Serializable {
 
 	public void setEdicionTipo(TipoPago edicionTipo) {
 		this.edicionTipo = edicionTipo;
+	}
+
+	public int getIdTipoPagoSeleccionado() {
+		return idTipoPagoSeleccionado;
+	}
+
+	public void setIdTipoPagoSeleccionado(int idTipoPagoSeleccionado) {
+		this.idTipoPagoSeleccionado = idTipoPagoSeleccionado;
 	}
 
 }

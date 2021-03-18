@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import minimarketdemo.controller.JSFUtil;
+import minimarketdemo.controller.gestion.BeanTipoPago;
 import minimarketdemo.model.cajero.managers.ManagerPago;
 import minimarketdemo.model.core.entities.Pago;
 import minimarketdemo.model.core.entities.TipoPago;
@@ -19,7 +20,9 @@ public class BeanPago implements Serializable {
 
 	@EJB
 	private ManagerPago mPago;
-
+//	private ManagerTipoPago mTipoPago;
+//
+//	private List<TipoPago> listaTipo;
 	private List<Pago> listaPago;
 	private Pago nuevoPago;
 	private Pago edicionPago;
@@ -28,68 +31,69 @@ public class BeanPago implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String actionMenuPago() {
+	public String actionMenuPago() {		
 		listaPago = mPago.findAllPago();
 		System.out.println("MENUPAGO");
 		return "pago";
 	}
 
-//	public void actionListenerActivarDesactivarTipoPago(int idTipoPago) {
-//		try {
-//			mTipoPago.activarDesactivarTipo(idTipoPago);
-//			listaTipo = mTipoPago.findAllTipoPago();
-//			JSFUtil.crearMensajeINFO("Tipo de Pago activado/desactivado");
-//		} catch (Exception e) {
-//			JSFUtil.crearMensajeERROR(e.getMessage());
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public String actionMenuNuevoTipoPago() {
-//		nuevoTipo = new TipoPago();
-//		nuevoTipo.setEstado(true);
-//		return "tipopago_nuevo";
-//	}
-//
-//	public void actionListenerInsertarNuevoTipoPago() {
-//		try {
-//			mTipoPago.insertarTipoPago(nuevoTipo);
-//			listaTipo = mTipoPago.findAllTipoPago();
-//			nuevoTipo = new TipoPago();
-//			nuevoTipo.setEstado(true);
-//			JSFUtil.crearMensajeINFO("Tipo de Pago insertado.");
-//		} catch (Exception e) {
-//			JSFUtil.crearMensajeERROR(e.getMessage());
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public String actionSeleccionarEdicionTipo(TipoPago tipo) {
-//		edicionTipo = tipo;
-//		return "tipos_edicion";
-//	}
-//
-//	public void actionListenerActualizarEdicionTipo() {
-//		try {
-//			mTipoPago.actualizarTipoPago(edicionTipo);
-//			listaTipo = mTipoPago.findAllTipoPago();
-//			JSFUtil.crearMensajeINFO("Tipo de Pago actualizado.");
-//		} catch (Exception e) {
-//			JSFUtil.crearMensajeERROR(e.getMessage());
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void actionListenerEliminarTipo(int idTipoPago) {
-//		try {
-//			mTipoPago.eliminarTipo(idTipoPago);
-//			listaTipo = mTipoPago.findAllTipoPago();
-//			JSFUtil.crearMensajeINFO("Tipo de Pago eliminado.");
-//		} catch (Exception e) {
-//			JSFUtil.crearMensajeERROR(e.getMessage());
-//			e.printStackTrace();
-//		}
-//	}
+	public void actionListenerActivarDesactivarPago(int idPago) {
+		try {
+			mPago.activarDesactivarPago(idPago);
+			listaPago = mPago.findAllPago();
+			JSFUtil.crearMensajeINFO("Pago activado/desactivado");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public String actionMenuNuevoPago() {
+		//listaTipo = mTipoPago.findAllTipoPago();
+		nuevoPago = new Pago();
+		nuevoPago.setEstado(true);
+		return "pago_nuevo";
+	}
+
+	public void actionListenerInsertarNuevoPago() {
+		try {
+			mPago.insertarPago(nuevoPago);
+			listaPago = mPago.findAllPago();
+			nuevoPago = new Pago();
+			nuevoPago.setEstado(true);
+			JSFUtil.crearMensajeINFO("Pago insertado.");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public String actionSeleccionarEdicionPago(Pago pago) {
+		edicionPago = pago;
+		return "pago_edicion";
+	}
+
+	public void actionListenerActualizarEdicionPago() {
+		try {
+			mPago.actualizarPago(edicionPago);
+			listaPago = mPago.findAllPago();
+			JSFUtil.crearMensajeINFO("Pago actualizado.");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void actionListenerEliminarPago(int idPago) {
+		try {
+			mPago.eliminarPago(idPago);
+			listaPago = mPago.findAllPago();
+			JSFUtil.crearMensajeINFO("Pago eliminado.");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public List<Pago> getListaPago() {
 		return listaPago;
@@ -114,5 +118,13 @@ public class BeanPago implements Serializable {
 	public void setEdicionPago(Pago edicionPago) {
 		this.edicionPago = edicionPago;
 	}
+
+//	public List<TipoPago> getListaTipo() {
+//		return listaTipo;
+//	}
+//
+//	public void setListaTipo(List<TipoPago> listaTipo) {
+//		this.listaTipo = listaTipo;
+//	}
 
 }
