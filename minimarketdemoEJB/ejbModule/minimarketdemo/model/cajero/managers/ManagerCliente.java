@@ -44,7 +44,9 @@ public class ManagerCliente {
      * @throws Exception
      */
     public void insertarCliente(Cliente nuevoCliente) throws Exception {
+    	nuevoCliente.setSaldoDeuda(nuevoCliente.getDeudaIncial());
     	mDAO.insertar(nuevoCliente);
+    	
     }
     
     public void actualizarCliente(Cliente edicionCliente) throws Exception {
