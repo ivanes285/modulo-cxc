@@ -17,7 +17,9 @@
 			<p:menuitem value="Regresar" icon="pi pi-home"
 				action="/menu?faces-redirect=true" />
 			<p:menuitem value="Pagos" icon="pi pi-users"
-				action="#{beanPago.actionMenuPago()}" />			
+				action="#{beanPago.actionMenuPago()}" />
+			<p:menuitem value="Clientes" icon="pi pi-users"
+				action="#{beanCliente.actionMenuCliente()}" />
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">

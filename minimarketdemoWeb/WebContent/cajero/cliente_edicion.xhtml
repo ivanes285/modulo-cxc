@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<title>Cliente</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="cliente" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:panel>
+		<h:form>
+			<p:panelGrid columns="2">
+				<h:outputText value="Nombre:" />
+				<p:inputText value="#{beanCliente.edicionCliente.nombreCliente}"
+					required="true" requiredMessage="Ingrese el nombre" />
+				<h:outputText value="Apellido:" />
+				<p:inputText value="#{beanCliente.edicionCliente.apellidoCliente}"
+					required="true" requiredMessage="Ingrese el apellido" />
+				<h:outputText value="Teléfono:" />
+				<p:inputText value="#{beanCliente.edicionCliente.telf}"
+					required="true" requiredMessage="Ingrese el teléfono" />
+				<h:outputText value="Dirección:" />
+				<p:inputText value="#{beanCliente.edicionCliente.dir}"
+					required="true" requiredMessage="Ingrese la dirección" />
+				<h:outputText value="Correo:" />
+				<p:inputText value="#{beanCliente.edicionCliente.correo}"
+					required="true" requiredMessage="Ingrese el correo" />
+				<h:outputText value="Cédula:" />
+				<p:inputText value="#{beanCliente.edicionCliente.cedula}"
+					required="true" requiredMessage="Ingrese la cédula" />
+				<h:outputText value="Deuda Inicial:" />
+				<p:inputText value="#{beanCliente.edicionCliente.deudaIncial}"
+					required="true" requiredMessage="Ingrese la deuda inicial" />
+				<h:outputText value="Saldo deuda:" />
+				<p:inputText value="#{beanCliente.edicionCliente.saldoDeuda}"
+					required="true" requiredMessage="Ingrese el saldo de la deuda" />
+				<p:commandButton value="Actualizar" icon="pi pi-save" update="@form"
+					actionListener="#{beanCliente.actionListenerActualizarCliente()}"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+</body>
+</html>

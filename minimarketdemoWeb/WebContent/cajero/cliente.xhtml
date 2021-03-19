@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<title>Clientes</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<p:menuitem value="Nuevo Cliente" icon="pi pi-user-plus"
+				action="#{beanCliente.actionMenuNuevoCliente()}" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:panel>
+		<h:form>
+			<p:dataTable value="#{beanCliente.listaCliente}" var="c"
+				paginator="true" rows="5">
+				<p:column headerText="ID">
+					<h:outputText value="#{c.idCliente}" />
+				</p:column>
+				<p:column headerText="NOMBRE" filterBy="#{c.nombreCliente}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.nombreCliente}" />
+				</p:column>
+				<p:column headerText="APELLIDO" filterBy="#{c.apellidoCliente}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.apellidoCliente}" />
+				</p:column>
+				<p:column headerText="TELÉFONO" filterBy="#{c.telf}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.telf}" />
+				</p:column>	
+				<p:column headerText="DIRECCIÓN" filterBy="#{c.dir}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.dir}" />
+				</p:column>	
+				<p:column headerText="CORREO" filterBy="#{c.correo}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.correo}" />
+				</p:column>		
+				<p:column headerText="CÉDULA" filterBy="#{c.cedula}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.cedula}" />
+				</p:column>			
+				<p:column headerText="DEUDA INICIAL" filterBy="#{c.deudaIncial}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.deudaIncial}" />
+				</p:column>	
+				<p:column headerText="SALDO DEUDA" filterBy="#{c.saldoDeuda}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.saldoDeuda}" />
+				</p:column>	
+				<p:column headerText="OPCIONES">
+					<p:commandButton icon="pi pi-pencil" title="editar"
+						action="#{beanCliente.actionSeleccionarEdicionCliente(c)}" />
+					<p:commandButton icon="pi pi-times-circle" title="eliminar"
+						styleClass="ui-button-danger" update="@form"
+						actionListener="#{beanCliente.actionListenerEliminarCliente(c.idCliente)}">
+						<p:confirm header="Confirmación"
+							message="¿Desea borrar este cliente?" icon="pi pi-info-circle" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+		responsive="true" width="350">
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no ui-button-flat" />
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes"/>
+	</p:confirmDialog>
+</body>
+</html>
