@@ -52,9 +52,6 @@
 				<h:outputText value="Deuda Inicial:" />
 				<p:inputText value="#{beanCliente.nuevoCliente.deudaIncial}"
 					required="true" requiredMessage="Ingrese la deuda inicial" />
-					<h:outputText value="Saldo Deuda:" />
-				<p:inputText value="#{beanCliente.nuevoCliente.saldoDeuda}"
-					required="true" requiredMessage="Ingrese el saldo de la deuda" />
 				<p:commandButton value="Guardar" icon="pi pi-save" update="@form"
 					actionListener="#{beanCliente.actionListenerInsertarNuevoCliente()}"></p:commandButton>
 			</p:panelGrid>
