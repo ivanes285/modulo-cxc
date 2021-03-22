@@ -66,7 +66,7 @@ public class BeanPago implements Serializable {
 
 	public void actionListenerInsertarNuevoPago() {
 		try {
-			//incrementos();
+			incrementos();
 			mPago.insertarPago(nuevoPago, idCliente, idTipoPago);
 			listaPago = mPago.findAllPago();
 			nuevoPago = new Pago();
@@ -77,14 +77,16 @@ public class BeanPago implements Serializable {
 		}
 	}
 
+	String num="";
+	int con=0;
 	public void incrementos() {
-		if (listaPago.isEmpty())
-			nuevoPago.setNumPago("PAG-1");
-		else {
-			String num = nuevoPago.getNumPago().split("-", 2)[1];
-			int n = Integer.parseInt(num);
-			n++;
-			nuevoPago.setNumPago("PAG-" + n);
+		if (listaPago.isEmpty()) {
+			num = String.format("PAG-%04d",1);
+			nuevoPago.setNumPago(num);
+		}else {
+		   con=listaPago.size()+1;
+		   num = String.format("PAG-%04d",con);
+			nuevoPago.setNumPago(num);
 		}
 	}
 

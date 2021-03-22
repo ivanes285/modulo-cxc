@@ -25,6 +25,9 @@ import minimarketdemo.model.core.managers.ManagerDAO;
 @LocalBean
 public class ManagerPago {
 
+	
+	Pago pa= new Pago();
+	
 	@EJB
 	private ManagerDAO mDAO;
 	@EJB
@@ -32,7 +35,9 @@ public class ManagerPago {
 
 	@PersistenceContext
 	private EntityManager em;
+ 
 
+	
 	/**
 	 * Default constructor.
 	 */
@@ -56,6 +61,10 @@ public class ManagerPago {
 	 * @param nuevoTipoPago
 	 * @throws Exception
 	 */
+	
+	String num="";
+	
+
 	public void insertarPago(Pago nuevoPago, Integer idCliente, Integer idTipoPago) throws Exception {
 		Cliente c = em.find(Cliente.class, idCliente);
 		if (c == null)
@@ -64,29 +73,10 @@ public class ManagerPago {
 		TipoPago tp = em.find(TipoPago.class, idTipoPago);
 		if (tp == null)
 			throw new Exception("No existe el tipo de pago con id: (" + idTipoPago + ")");
-
+     
 		nuevoPago.setCliente(c);
 		nuevoPago.setTipoPago(tp);
 		nuevoPago.setFechaPago(new Date());
-
-		  
-		/*DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
-		String strDate = dateFormat.format(new Date());
-		System.out.println(strDate);
-		
-		String querry = "insert into pago (id_cliente, id_tipo_pago, num_pago, fecha_pago, monto) "
-				+ "values (:id_cliente, :id_tipo_pago, :num_pago, :fecha_pago, :monto)";
-		
-		Query q=em.createQuery(querry);
-		em.getTransaction().begin();
-		q.setParameter("id_cliente", idCliente);
-		q.setParameter("id_tipo_pago", idTipoPago);
-		q.setParameter("num_pago", nuevoPago.getNumPago());
-		q.setParameter("fecha_pago", strDate);
-		q.setParameter("monto", nuevoPago.getMonto());
-		q.executeUpdate();
-		em.getTransaction().commit();*/
-
 		mDAO.insertar(nuevoPago);
 	}
 
