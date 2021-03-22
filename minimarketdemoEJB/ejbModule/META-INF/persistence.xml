@@ -12,7 +12,6 @@
 		<class>minimarketdemo.model.core.entities.ThmRolDetalle</class>
 		<class>minimarketdemo.model.core.entities.Cliente</class>
 		<class>minimarketdemo.model.core.entities.Pago</class>
-		<class>minimarketdemo.model.core.entities.PagoPK</class>
 		<class>minimarketdemo.model.core.entities.TipoPago</class>
 	</persistence-unit>
 </persistence>

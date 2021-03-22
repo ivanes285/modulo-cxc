@@ -33,19 +33,32 @@
 	<p:panel>
 		<h:form>
 			<p:panelGrid columns="2">
+
+				<h:outputText value="Cliente" />
+				<p:selectOneMenu value="#{beanPago.idCliente}">
+					<f:selectItem itemLabel="Seleccione el tipo de pago"
+						noSelectionOption="true" />
+					<f:selectItems value="#{beanCliente.listaCliente}" var="u"
+						itemLabel="#{u.nombreCliente} #{u.apellidoCliente}"
+						itemValue="#{u.idCliente}"></f:selectItems>
+				</p:selectOneMenu>
+
 				<h:outputText value="Número de Pago:" />
 				<p:inputText value="#{beanPago.nuevoPago.numPago}" required="true"
 					requiredMessage="Ingrese el número de pago" />
+
 				<h:outputText value="Monto:" />
 				<p:inputText value="#{beanPago.nuevoPago.monto}" required="true"
 					requiredMessage="Ingrese el monto" />
+
 				<h:outputText value="Tipo de Pago:" />
-				<p:selectOneMenu>
+				<p:selectOneMenu value="#{beanPago.idTipoPago}">
 					<f:selectItem itemLabel="Seleccione el tipo de pago"
 						noSelectionOption="true" />
 					<f:selectItems value="#{beanTipoPago.listaTipo}" var="u"
 						itemLabel="#{u.nombre}" itemValue="#{u.idTipoPago}"></f:selectItems>
 				</p:selectOneMenu>
+
 				<p:commandButton value="Guardar" icon="pi pi-save" update="@form"
 					actionListener="#{beanPago.actionListenerInsertarNuevoPago()}"></p:commandButton>
 			</p:panelGrid>

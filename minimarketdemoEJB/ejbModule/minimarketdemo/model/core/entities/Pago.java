@@ -16,8 +16,10 @@ import java.util.Date;
 public class Pago implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PagoPK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_pago", unique=true, nullable=false)
+	private Integer idPago;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_pago", nullable=false)
@@ -26,28 +28,28 @@ public class Pago implements Serializable {
 	@Column(nullable=false, precision=7, scale=2)
 	private BigDecimal monto;
 
-	@Column(name="num_pago", nullable=false, length=10)
+	@Column(name="num_pago", nullable=false, length=20)
 	private String numPago;
 
 	//bi-directional many-to-one association to Cliente
 	@ManyToOne
-	@JoinColumn(name="id_cliente", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_cliente", nullable=false)
 	private Cliente cliente;
 
 	//bi-directional many-to-one association to TipoPago
 	@ManyToOne
-	@JoinColumn(name="id_tipo_pago", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_tipo_pago", nullable=false)
 	private TipoPago tipoPago;
 
 	public Pago() {
 	}
 
-	public PagoPK getId() {
-		return this.id;
+	public Integer getIdPago() {
+		return this.idPago;
 	}
 
-	public void setId(PagoPK id) {
-		this.id = id;
+	public void setIdPago(Integer idPago) {
+		this.idPago = idPago;
 	}
 
 	public Date getFechaPago() {

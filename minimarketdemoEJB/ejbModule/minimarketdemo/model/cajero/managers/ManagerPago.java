@@ -1,12 +1,19 @@
 package minimarketdemo.model.cajero.managers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import minimarketdemo.model.auditoria.managers.ManagerAuditoria;
+import minimarketdemo.model.core.entities.Cliente;
 import minimarketdemo.model.core.entities.Pago;
 import minimarketdemo.model.core.entities.TipoPago;
 import minimarketdemo.model.core.managers.ManagerDAO;
@@ -22,49 +29,83 @@ public class ManagerPago {
 	private ManagerDAO mDAO;
 	@EJB
 	private ManagerAuditoria mAuditoria;
-	
-    /**
-     * Default constructor. 
-     */
-    public ManagerPago() {
-        // TODO Auto-generated constructor stub
-    }
 
-    public List<Pago> findAllPago(){
-    	Pago p = new Pago();
-    	System.out.println("FORANEA "+p.getTipoPago());
-    	return mDAO.findAll(Pago.class, "numPago");
-    }
-    
+	@PersistenceContext
+	private EntityManager em;
+
+	/**
+	 * Default constructor.
+	 */
+	public ManagerPago() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public List<Pago> findAllPago() {
+		Pago p = new Pago();
+		System.out.println("FORANEA " + p.getTipoPago());
+		return mDAO.findAll(Pago.class, "numPago");
+	}
+
 //    public SegUsuario findByIdSegUsuario(int idSegUsuario) throws Exception {
 //    	return (SegUsuario) mDAO.findById(SegUsuario.class, idSegUsuario);
 //    }
-    
-    /**
-     * metodo que recibe un object tipopago e inserta en la BDD
-     * @param nuevoTipoPago
-     * @throws Exception
-     */
-    public void insertarPago(Pago nuevoPago) throws Exception {
-    	mDAO.insertar(nuevoPago);
-    }
-    
-    public void actualizarPago(Pago edicionPago) throws Exception {
-    	Pago pago=(Pago) mDAO.findById(Pago.class, edicionPago.getId());
-    	pago.setNumPago(edicionPago.getNumPago());
-    	pago.setMonto(edicionPago.getMonto());
-    	pago.setTipoPago(edicionPago.getTipoPago());
-    	mDAO.actualizar(pago);
-    }
-    
-    public void activarDesactivarPago(int idPago) throws Exception {
-    	Pago pago=(Pago) mDAO.findById(Pago.class, idPago);    	
-    	mDAO.actualizar(pago);
-    }
-    
-    public void eliminarPago(int idPago) throws Exception {
-    	Pago pago=(Pago) mDAO.findById(Pago.class, idPago);    	    	
-    	mDAO.eliminar(Pago.class, pago.getId());
-    }
-    
+
+	/**
+	 * metodo que recibe un object tipopago e inserta en la BDD
+	 * 
+	 * @param nuevoTipoPago
+	 * @throws Exception
+	 */
+	public void insertarPago(Pago nuevoPago, Integer idCliente, Integer idTipoPago) throws Exception {
+		Cliente c = em.find(Cliente.class, idCliente);
+		if (c == null)
+			throw new Exception("No existe el cliente con id: (" + idCliente + ")");
+
+		TipoPago tp = em.find(TipoPago.class, idTipoPago);
+		if (tp == null)
+			throw new Exception("No existe el tipo de pago con id: (" + idTipoPago + ")");
+
+		nuevoPago.setCliente(c);
+		nuevoPago.setTipoPago(tp);
+		nuevoPago.setFechaPago(new Date());
+
+		  
+		/*DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+		String strDate = dateFormat.format(new Date());
+		System.out.println(strDate);
+		
+		String querry = "insert into pago (id_cliente, id_tipo_pago, num_pago, fecha_pago, monto) "
+				+ "values (:id_cliente, :id_tipo_pago, :num_pago, :fecha_pago, :monto)";
+		
+		Query q=em.createQuery(querry);
+		em.getTransaction().begin();
+		q.setParameter("id_cliente", idCliente);
+		q.setParameter("id_tipo_pago", idTipoPago);
+		q.setParameter("num_pago", nuevoPago.getNumPago());
+		q.setParameter("fecha_pago", strDate);
+		q.setParameter("monto", nuevoPago.getMonto());
+		q.executeUpdate();
+		em.getTransaction().commit();*/
+
+		mDAO.insertar(nuevoPago);
+	}
+
+	public void actualizarPago(Pago edicionPago) throws Exception {
+		Pago pago = (Pago) mDAO.findById(Pago.class, edicionPago.getIdPago());
+		pago.setNumPago(edicionPago.getNumPago());
+		pago.setMonto(edicionPago.getMonto());
+		pago.setTipoPago(edicionPago.getTipoPago());
+		mDAO.actualizar(pago);
+	}
+
+	public void activarDesactivarPago(int idPago) throws Exception {
+		Pago pago = (Pago) mDAO.findById(Pago.class, idPago);
+		mDAO.actualizar(pago);
+	}
+
+	public void eliminarPago(int idPago) throws Exception {
+		Pago pago = (Pago) mDAO.findById(Pago.class, idPago);
+		mDAO.eliminar(Pago.class, pago.getIdPago());
+	}
+
 }

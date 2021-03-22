@@ -3,6 +3,7 @@ package minimarketdemo.controller.cajero;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -21,17 +22,26 @@ public class BeanPago implements Serializable {
 	@EJB
 	private ManagerPago mPago;
 //	private ManagerTipoPago mTipoPago;
+
 //
 //	private List<TipoPago> listaTipo;
 	private List<Pago> listaPago;
 	private Pago nuevoPago;
 	private Pago edicionPago;
-	
+	private Integer idCliente;
+	private Integer idTipoPago;
+
 	public BeanPago() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public String actionMenuPago() {		
+
+	@PostConstruct
+	public void inicializar() {
+		listaPago = mPago.findAllPago();
+		nuevoPago = new Pago();
+	}
+
+	public String actionMenuPago() {
 		listaPago = mPago.findAllPago();
 		System.out.println("MENUPAGO");
 		return "pago";
@@ -49,20 +59,32 @@ public class BeanPago implements Serializable {
 	}
 
 	public String actionMenuNuevoPago() {
-		//listaTipo = mTipoPago.findAllTipoPago();
+		// listaTipo = mTipoPago.findAllTipoPago();
 		nuevoPago = new Pago();
 		return "pago_nuevo";
 	}
 
 	public void actionListenerInsertarNuevoPago() {
 		try {
-			mPago.insertarPago(nuevoPago);
+			//incrementos();
+			mPago.insertarPago(nuevoPago, idCliente, idTipoPago);
 			listaPago = mPago.findAllPago();
 			nuevoPago = new Pago();
 			JSFUtil.crearMensajeINFO("Pago insertado.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
+		}
+	}
+
+	public void incrementos() {
+		if (listaPago.isEmpty())
+			nuevoPago.setNumPago("PAG-1");
+		else {
+			String num = nuevoPago.getNumPago().split("-", 2)[1];
+			int n = Integer.parseInt(num);
+			n++;
+			nuevoPago.setNumPago("PAG-" + n);
 		}
 	}
 
@@ -115,6 +137,22 @@ public class BeanPago implements Serializable {
 
 	public void setEdicionPago(Pago edicionPago) {
 		this.edicionPago = edicionPago;
+	}
+
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public Integer getIdTipoPago() {
+		return idTipoPago;
+	}
+
+	public void setIdTipoPago(Integer idTipoPago) {
+		this.idTipoPago = idTipoPago;
 	}
 
 //	public List<TipoPago> getListaTipo() {

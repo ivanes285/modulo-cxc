@@ -5,6 +5,7 @@
 	<projects>
 		<project>minimarketdemoEJB</project>
 		<project>minimarketdemoWeb</project>
+		<project>modulo-cxc</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

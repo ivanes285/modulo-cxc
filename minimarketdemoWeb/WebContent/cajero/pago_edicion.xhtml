@@ -31,12 +31,29 @@
 	<p:panel>
 		<h:form>
 			<p:panelGrid columns="2">
+				<h:outputText value="Cliente" />
+				<p:selectOneMenu value="#{beanPago.idCliente}">
+					<f:selectItem itemLabel="Seleccione el tipo de pago"
+						noSelectionOption="true" />
+					<f:selectItems value="#{beanCliente.listaCliente}" var="u"
+						itemLabel="#{u.nombreCliente} #{u.apellidoCliente}"
+						itemValue="#{u.idCliente}"></f:selectItems>
+				</p:selectOneMenu>
 				<h:outputText value="Numero de Pago:" />
-				<p:inputText value="#{beanPago.edicionPago.numPago}"
-					required="true" requiredMessage="Ingrese el número de pago" />
+				<p:inputText value="#{beanPago.edicionPago.numPago}" required="true"
+					requiredMessage="Ingrese el número de pago" />
 				<h:outputText value="Monto:" />
-				<p:inputText value="#{beanPago.edicionPago.monto}"
-					required="true" requiredMessage="Ingrese el monto" />				
+				<p:inputText value="#{beanPago.edicionPago.monto}" required="true"
+					requiredMessage="Ingrese el monto" />
+				<h:outputText value="Tipo de Pago:" />
+				<p:selectOneMenu value="#{beanPago.idTipoPago}">
+					<f:selectItem itemLabel="Seleccione el tipo de pago"
+						noSelectionOption="true" />
+					<f:selectItems value="#{beanTipoPago.listaTipo}" var="u"
+						itemLabel="#{u.nombre}" itemValue="#{u.idTipoPago}"></f:selectItems>
+				</p:selectOneMenu>
+				<h:outputText value="Fecha:" />
+				<p:calendar value="#{beanPago.edicionPago.fechaPago}"></p:calendar>
 				<p:commandButton value="Actualizar" icon="pi pi-save" update="@form"
 					actionListener="#{beanPago.actionListenerActualizarEdicionPago()}"></p:commandButton>
 			</p:panelGrid>

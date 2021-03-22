@@ -3,6 +3,7 @@ package minimarketdemo.controller.cajero;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -15,7 +16,7 @@ import minimarketdemo.model.core.entities.TipoPago;
 @Named
 @SessionScoped
 public class BeanCliente implements Serializable {
-	
+
 	@EJB
 	private ManagerCliente mCliente;
 
@@ -27,13 +28,18 @@ public class BeanCliente implements Serializable {
 	public BeanCliente() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	@PostConstruct
+	public void inicializar() {
+		listaCliente = mCliente.findAllCliente();
+	}
+
 	public String actionMenuCliente() {
 		listaCliente = mCliente.findAllCliente();
 		System.out.println("MENUCLIENTE");
 		return "cliente";
 	}
-	
+
 	public void LlenarMenuCliente() {
 		listaCliente = mCliente.findAllCliente();
 		System.out.println("LISTA LLENADA");
@@ -42,17 +48,17 @@ public class BeanCliente implements Serializable {
 //	public void actionListenerSeleccionarTipoPago() {
 //		listaTipo=ManagerTipoPago;
 //	}
-	
-	//public void actionListenerActivarDesactivarTipoPago(int idTipoPago) {
-		//try {
-			//mTipoPago.activarDesactivarTipo(idTipoPago);
-			//listaTipo = mTipoPago.findAllTipoPago();
-			//JSFUtil.crearMensajeINFO("Tipo de Pago activado/desactivado");
-		//} catch (Exception e) {
-			//JSFUtil.crearMensajeERROR(e.getMessage());
-			//e.printStackTrace();
-		//}
-	//}
+
+	// public void actionListenerActivarDesactivarTipoPago(int idTipoPago) {
+	// try {
+	// mTipoPago.activarDesactivarTipo(idTipoPago);
+	// listaTipo = mTipoPago.findAllTipoPago();
+	// JSFUtil.crearMensajeINFO("Tipo de Pago activado/desactivado");
+	// } catch (Exception e) {
+	// JSFUtil.crearMensajeERROR(e.getMessage());
+	// e.printStackTrace();
+	// }
+	// }
 
 	public String actionMenuNuevoCliente() {
 		nuevoCliente = new Cliente();
@@ -137,7 +143,5 @@ public class BeanCliente implements Serializable {
 	public void setEdicionCliente(Cliente edicionCliente) {
 		this.edicionCliente = edicionCliente;
 	}
-	
-	
 
 }
