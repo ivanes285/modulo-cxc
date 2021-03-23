@@ -1,6 +1,7 @@
 package minimarketdemo.controller.cajero;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -30,6 +31,8 @@ public class BeanPago implements Serializable {
 	private Pago edicionPago;
 	private Integer idCliente;
 	private Integer idTipoPago;
+	private Date fechaInicio;
+	private Date fechaFin;
 
 	public BeanPago() {
 		// TODO Auto-generated constructor stub
@@ -39,6 +42,11 @@ public class BeanPago implements Serializable {
 	public void inicializar() {
 		listaPago = mPago.findAllPago();
 		nuevoPago = new Pago();
+	}
+	
+	public void actionListenerConsultarPago() {
+		listaPago = mPago.findPagoByFecha(fechaInicio, fechaFin);
+		JSFUtil.crearMensajeINFO("Registros encontrados: " + listaPago.size());
 	}
 
 	public String actionMenuPago() {
@@ -156,6 +164,24 @@ public class BeanPago implements Serializable {
 	public void setIdTipoPago(Integer idTipoPago) {
 		this.idTipoPago = idTipoPago;
 	}
+
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	
+	
 
 //	public List<TipoPago> getListaTipo() {
 //		return listaTipo;

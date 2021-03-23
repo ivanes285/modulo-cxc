@@ -35,11 +35,11 @@
 			<p:panelGrid columns="2">
 
 				<h:outputText value="Cliente" />
-				<p:selectOneMenu value="#{beanPago.idCliente}">
-					<f:selectItem itemLabel="Seleccione el tipo de pago"
+				<p:selectOneMenu value="#{beanPago.idCliente}" filterMatchMode="contains" filter="true">
+					<f:selectItem itemLabel="Seleccione el cliente"
 						noSelectionOption="true" />
-					<f:selectItems value="#{beanCliente.listaCliente}" var="u"
-						itemLabel="#{u.nombreCliente} #{u.apellidoCliente}"
+					<f:selectItems value="#{beanCliente.listaCliente}" var="u"						
+						itemLabel="#{u.cedula} #{u.nombreCliente} #{u.apellidoCliente}"
 						itemValue="#{u.idCliente}"></f:selectItems>
 				</p:selectOneMenu>
 

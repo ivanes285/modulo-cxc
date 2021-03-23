@@ -1,5 +1,8 @@
 package minimarketdemo.model.cajero.managers;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import minimarketdemo.model.auditoria.managers.ManagerAuditoria;
+import minimarketdemo.model.core.entities.AudBitacora;
 import minimarketdemo.model.core.entities.Cliente;
 import minimarketdemo.model.core.entities.Pago;
 import minimarketdemo.model.core.entities.TipoPago;
@@ -25,9 +29,8 @@ import minimarketdemo.model.core.managers.ManagerDAO;
 @LocalBean
 public class ManagerPago {
 
-	
-	Pago pa= new Pago();
-	
+	Pago pa = new Pago();
+
 	@EJB
 	private ManagerDAO mDAO;
 	@EJB
@@ -35,9 +38,7 @@ public class ManagerPago {
 
 	@PersistenceContext
 	private EntityManager em;
- 
 
-	
 	/**
 	 * Default constructor.
 	 */
@@ -61,11 +62,11 @@ public class ManagerPago {
 	 * @param nuevoTipoPago
 	 * @throws Exception
 	 */
-	
-	String num="";
-	
+
+	String num = "";
 
 	public void insertarPago(Pago nuevoPago, Integer idCliente, Integer idTipoPago) throws Exception {
+		descontarDeuda(idCliente, nuevoPago.getMonto());
 		Cliente c = em.find(Cliente.class, idCliente);
 		if (c == null)
 			throw new Exception("No existe el cliente con id: (" + idCliente + ")");
@@ -73,11 +74,22 @@ public class ManagerPago {
 		TipoPago tp = em.find(TipoPago.class, idTipoPago);
 		if (tp == null)
 			throw new Exception("No existe el tipo de pago con id: (" + idTipoPago + ")");
-     
+
 		nuevoPago.setCliente(c);
 		nuevoPago.setTipoPago(tp);
 		nuevoPago.setFechaPago(new Date());
 		mDAO.insertar(nuevoPago);
+	}
+
+	public void descontarDeuda(int idcliente, BigDecimal monto) throws Exception {
+		Cliente cliente = (Cliente) mDAO.findById(Cliente.class, idcliente);
+		BigDecimal pago = cliente.getSaldoDeuda().subtract(monto);
+		if (pago.doubleValue() < 0) {
+			throw new Exception("El pago superó la deuda en: " + pago);
+		} else {
+			cliente.setSaldoDeuda(pago);
+			mDAO.actualizar(cliente);
+		}
 	}
 
 	public void actualizarPago(Pago edicionPago) throws Exception {
@@ -98,4 +110,16 @@ public class ManagerPago {
 		mDAO.eliminar(Pago.class, pago.getIdPago());
 	}
 
+	public List<Pago> findPagoByFecha(Date fechaInicio,Date fechaFin){
+    	SimpleDateFormat format=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	System.out.println("fecha inicio: "+format.format(fechaInicio));
+    	System.out.println("fecha fin: "+format.format(fechaFin));
+    	String consulta="select b from pago b where b.fecha between :fechaInicio and :fechaFin order by b.fecha";
+    	Query q=mDAO.getEntityManager().createQuery(consulta, Pago.class);
+    	q.setParameter("fechaInicio", new Timestamp(fechaInicio.getTime()));
+    	q.setParameter("fechaFin", new Timestamp(fechaFin.getTime()));
+    	return q.getResultList();
+    	
+    }
+	
 }
