@@ -7,6 +7,8 @@
 <f:metadata>
 	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
 		type="preRenderView"></f:event>
+	<f:event listener="#{beanTipoPago.actionMenuTipoPago()}"
+		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
 	<title>Pago</title>
@@ -31,29 +33,33 @@
 	<p:panel>
 		<h:form>
 			<p:panelGrid columns="2">
-				<h:outputText value="Cliente" />
-				<p:selectOneMenu value="#{beanPago.idCliente}">
-					<f:selectItem itemLabel="Seleccione el tipo de pago"
-						noSelectionOption="true" />
-					<f:selectItems value="#{beanCliente.listaCliente}" var="u"
-						itemLabel="#{u.nombreCliente} #{u.apellidoCliente}"
-						itemValue="#{u.idCliente}"></f:selectItems>
-				</p:selectOneMenu>
-				<h:outputText value="Numero de Pago:" />
-				<p:inputText value="#{beanPago.edicionPago.numPago}" required="true"
-					requiredMessage="Ingrese el número de pago" />
-				<h:outputText value="Monto:" />
-				<p:inputText value="#{beanPago.edicionPago.monto}" required="true"
-					requiredMessage="Ingrese el monto" />
-				<h:outputText value="Tipo de Pago:" />
+				<h:outputText value="CÉDULA:" />
+				<p:inputText value="#{beanPago.edicionPago.cliente.cedula}"
+					required="true" requiredMessage="Ingrese la cédula del cliente" />
+				<h:outputText value="NOMBRE:" />
+				<p:inputText value="#{beanPago.edicionPago.cliente.nombreCliente}"
+					required="true" requiredMessage="Ingrese el nombre del cliente" />
+				<h:outputText value="APELLIDO:" />
+				<p:inputText value="#{beanPago.edicionPago.cliente.apellidoCliente}"
+					required="true" requiredMessage="Ingrese el apellido del cliente" />
+				<h:outputText value="CORREO:" />
+				<p:inputText value="#{beanPago.edicionPago.cliente.correo}"
+					required="true" requiredMessage="Ingrese el nombre del cliente" />
+				<h:outputText value="DIRECCIÓN:" />
+				<p:inputText value="#{beanPago.edicionPago.cliente.dir}"
+					required="true" requiredMessage="Ingrese la dirección del cliente" />
+				<h:outputText value="TELF:" />
+				<p:inputText value="#{beanPago.edicionPago.cliente.telf}"
+					required="true" requiredMessage="Ingrese el teléfono del cliente" />
+				<h:outputText value="MONTO:" />
+				<h:outputText value="#{beanPago.edicionPago.monto}" />
+				<h:outputText value="TIPO DE PAGO: " />
 				<p:selectOneMenu value="#{beanPago.idTipoPago}">
 					<f:selectItem itemLabel="Seleccione el tipo de pago"
 						noSelectionOption="true" />
 					<f:selectItems value="#{beanTipoPago.listaTipo}" var="u"
 						itemLabel="#{u.nombre}" itemValue="#{u.idTipoPago}"></f:selectItems>
 				</p:selectOneMenu>
-				<h:outputText value="Fecha:" />
-				<p:calendar value="#{beanPago.edicionPago.fechaPago}"></p:calendar>
 				<p:commandButton value="Actualizar" icon="pi pi-save" update="@form"
 					actionListener="#{beanPago.actionListenerActualizarEdicionPago()}"></p:commandButton>
 			</p:panelGrid>

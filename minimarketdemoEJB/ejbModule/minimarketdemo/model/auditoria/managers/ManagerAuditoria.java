@@ -59,8 +59,7 @@ public class ManagerAuditoria {
     	Query q=mDAO.getEntityManager().createQuery(consulta, AudBitacora.class);
     	q.setParameter("fechaInicio", new Timestamp(fechaInicio.getTime()));
     	q.setParameter("fechaFin", new Timestamp(fechaFin.getTime()));
-    	return q.getResultList();
-    	
+    	return q.getResultList();    	
     }
 
 }

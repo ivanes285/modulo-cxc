@@ -5,8 +5,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 import minimarketdemo.model.auditoria.managers.ManagerAuditoria;
+import minimarketdemo.model.core.entities.AudBitacora;
 import minimarketdemo.model.core.entities.Cliente;
 import minimarketdemo.model.core.entities.TipoPago;
 import minimarketdemo.model.core.managers.ManagerDAO;
@@ -66,5 +68,10 @@ public class ManagerCliente {
     	Cliente cliente=(Cliente) mDAO.findById(Cliente.class, idCliente);    	    	
     	mDAO.eliminar(Cliente.class, cliente.getIdCliente());
     }
-
+    
+    public List<Cliente> clienteConDeuda(){
+    	String consulta="select c from Cliente c where c.saldoDeuda > 0";    	
+    	Query q=mDAO.getEntityManager().createQuery(consulta, Cliente.class);
+    	return q.getResultList();
+    }
 }

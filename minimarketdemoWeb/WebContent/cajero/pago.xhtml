@@ -32,6 +32,12 @@
 	</h:form>
 	<p:panel>
 		<h:form>
+		<h:outputText value="Fecha inicio:" />
+			<p:datePicker value="#{beanPago.fechaInicio}" showTime="true" />
+			<h:outputText value="Fecha fin:" />
+			<p:datePicker value="#{beanPago.fechaFin}" showTime="true" />
+			<p:commandButton update="@form" value="Consultar" icon="pi pi-clock"
+				actionListener="#{beanPago.actionListenerConsultarPago()}" />
 			<p:dataTable value="#{beanPago.listaPago}" var="p" paginator="true"
 				rows="5">
 				<p:column headerText="NUMERO DE PAGO" filterBy="#{p.numPago}"

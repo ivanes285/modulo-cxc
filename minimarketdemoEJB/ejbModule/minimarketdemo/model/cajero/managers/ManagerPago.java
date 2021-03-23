@@ -94,9 +94,14 @@ public class ManagerPago {
 
 	public void actualizarPago(Pago edicionPago) throws Exception {
 		Pago pago = (Pago) mDAO.findById(Pago.class, edicionPago.getIdPago());
-		pago.setNumPago(edicionPago.getNumPago());
-		pago.setMonto(edicionPago.getMonto());
+		pago.getCliente().setNombreCliente(edicionPago.getCliente().getNombreCliente());
+		pago.getCliente().setApellidoCliente(edicionPago.getCliente().getApellidoCliente());
+		pago.getCliente().setTelf(edicionPago.getCliente().getTelf());
+		pago.getCliente().setDir(edicionPago.getCliente().getDir());
+		pago.getCliente().setCorreo(edicionPago.getCliente().getCorreo());
+		pago.getCliente().setCedula(edicionPago.getCliente().getCedula());
 		pago.setTipoPago(edicionPago.getTipoPago());
+		pago.setCliente(edicionPago.getCliente());
 		mDAO.actualizar(pago);
 	}
 
@@ -114,7 +119,7 @@ public class ManagerPago {
     	SimpleDateFormat format=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     	System.out.println("fecha inicio: "+format.format(fechaInicio));
     	System.out.println("fecha fin: "+format.format(fechaFin));
-    	String consulta="select b from pago b where b.fecha between :fechaInicio and :fechaFin order by b.fecha";
+    	String consulta="select b from Pago b where b.fechaPago between :fechaInicio and :fechaFin order by b.fechaPago";
     	Query q=mDAO.getEntityManager().createQuery(consulta, Pago.class);
     	q.setParameter("fechaInicio", new Timestamp(fechaInicio.getTime()));
     	q.setParameter("fechaFin", new Timestamp(fechaFin.getTime()));
