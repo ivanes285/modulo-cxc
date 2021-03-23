@@ -1,5 +1,6 @@
 package minimarketdemo.model.cajero.managers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import minimarketdemo.model.auditoria.managers.ManagerAuditoria;
+import minimarketdemo.model.cajero.dtos.DTOCliente;
 import minimarketdemo.model.core.entities.AudBitacora;
 import minimarketdemo.model.core.entities.Cliente;
 import minimarketdemo.model.core.entities.TipoPago;
@@ -69,9 +71,15 @@ public class ManagerCliente {
     	mDAO.eliminar(Cliente.class, cliente.getIdCliente());
     }
     
-    public List<Cliente> clienteConDeuda(){
-    	String consulta="select c from Cliente c where c.saldoDeuda > 0";    	
-    	Query q=mDAO.getEntityManager().createQuery(consulta, Cliente.class);
-    	return q.getResultList();
+    public List<DTOCliente> clienteConDeuda(){
+    	List<DTOCliente> listaClienteDTO = new ArrayList<DTOCliente>();
+    	for(Cliente c: findAllCliente()) {
+    		if(c.getSaldoDeuda().doubleValue()>0) {
+    			DTOCliente cli = new DTOCliente(c.getIdCliente(), c.getNombreCliente(), c.getApellidoCliente(), 
+    					c.getCedula(), c.getCorreo(), c.getDeudaIncial(), c.getDir(), c.getSaldoDeuda());
+    					listaClienteDTO.add(cli);
+    		}
+    	}
+    	return listaClienteDTO;
     }
 }
