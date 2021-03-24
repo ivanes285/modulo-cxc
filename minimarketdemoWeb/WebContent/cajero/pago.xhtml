@@ -38,8 +38,10 @@
 			<p:datePicker value="#{beanPago.fechaFin}" showTime="true" />
 			<p:commandButton update="@form" value="Consultar" icon="pi pi-clock"
 				actionListener="#{beanPago.actionListenerConsultarPago()}" />
+				  
 			<p:dataTable value="#{beanPago.listaPago}" var="p" paginator="true"
 				rows="5">
+				
 				<p:column headerText="NUMERO DE PAGO" filterBy="#{p.numPago}"
 					filterMatchMode="contains">
 					<h:outputText value="#{p.numPago}" />
@@ -56,7 +58,11 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{p.cliente.nombreCliente}" />
 				</p:column>
-				<p:column headerText="DESCRIPCIÓN"
+				<p:column headerText="DESCRIPCION"
+					filterBy="#{p.tipoPago.nombre}" filterMatchMode="contains">
+					<h:outputText value="#{p.tipoPago.nombre}" />
+				</p:column>
+				<p:column headerText="TIPO-PAGO"
 					filterBy="#{p.tipoPago.descripcion}" filterMatchMode="contains">
 					<h:outputText value="#{p.tipoPago.descripcion}" />
 				</p:column>
@@ -69,6 +75,7 @@
 					<h:outputText value="#{p.tipoPago.estado}" />
 				</p:column>
 				<p:column headerText="OPCIONES">
+				
 					<p:commandButton icon="pi pi-check-circle"
 						title="activar/desactivar" styleClass="ui-button-warning"
 						update="@form"
@@ -78,6 +85,7 @@
 				</p:column>
 			</p:dataTable>
 		</h:form>
+		
 	</p:panel>
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 		responsive="true" width="350">

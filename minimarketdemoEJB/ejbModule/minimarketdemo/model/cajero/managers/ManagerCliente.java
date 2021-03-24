@@ -71,6 +71,9 @@ public class ManagerCliente {
     	mDAO.eliminar(Cliente.class, cliente.getIdCliente());
     }
     
+    
+    
+ 
     public List<DTOCliente> clienteConDeuda(){
     	List<DTOCliente> listaClienteDTO = new ArrayList<DTOCliente>();
     	for(Cliente c: findAllCliente()) {
