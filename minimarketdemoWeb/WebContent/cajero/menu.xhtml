@@ -20,6 +20,14 @@
 				action="#{beanPago.actionMenuPago()}" />
 			<p:menuitem value="Clientes" icon="pi pi-users"
 				action="#{beanCliente.actionMenuCliente()}" />
+
+			<p:menuitem value="Cliente API" icon="pi pi-users"
+				action="#{beanClienteApi.actionMenuClienteApi()}" />
+				
+				<p:menuitem value="Facturas API" icon="pi pi-users"
+				action="#{beanFacturas.actionMenuFacturas()}" />
+				
+
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">

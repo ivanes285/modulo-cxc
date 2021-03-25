@@ -1,17 +1,18 @@
 package minimarketdemo.controller.cajero;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-
 import minimarketdemo.controller.JSFUtil;
 import minimarketdemo.model.cajero.managers.ManagerCliente;
 import minimarketdemo.model.core.entities.Cliente;
-import minimarketdemo.model.core.entities.TipoPago;
+
 
 @Named
 @SessionScoped
@@ -34,6 +35,7 @@ public class BeanCliente implements Serializable {
 		listaCliente = mCliente.findAllCliente();
 	}
 
+	
 	public String actionMenuCliente() {
 		listaCliente = mCliente.findAllCliente();
 		System.out.println("MENUCLIENTE");
@@ -45,25 +47,12 @@ public class BeanCliente implements Serializable {
 		System.out.println("LISTA LLENADA");
 	}
 
-//	public void actionListenerSeleccionarTipoPago() {
-//		listaTipo=ManagerTipoPago;
-//	}
-
-	// public void actionListenerActivarDesactivarTipoPago(int idTipoPago) {
-	// try {
-	// mTipoPago.activarDesactivarTipo(idTipoPago);
-	// listaTipo = mTipoPago.findAllTipoPago();
-	// JSFUtil.crearMensajeINFO("Tipo de Pago activado/desactivado");
-	// } catch (Exception e) {
-	// JSFUtil.crearMensajeERROR(e.getMessage());
-	// e.printStackTrace();
-	// }
-	// }
 
 	public String actionMenuNuevoCliente() {
 		nuevoCliente = new Cliente();
 		return "cliente_nuevo";
 	}
+	
 
 	public void actionListenerInsertarNuevoCliente() {
 		try {
@@ -143,5 +132,7 @@ public class BeanCliente implements Serializable {
 	public void setEdicionCliente(Cliente edicionCliente) {
 		this.edicionCliente = edicionCliente;
 	}
+
+	
 
 }

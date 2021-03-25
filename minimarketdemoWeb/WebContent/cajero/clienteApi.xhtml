@@ -9,7 +9,7 @@
 		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
-	<title>Clientes </title>
+	<title>Clientes de la API</title>
 </h:head>
 <body>
 	<p:growl>
@@ -18,8 +18,7 @@
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
-			<p:menuitem value="Nuevo Cliente" icon="pi pi-user-plus"
-				action="#{beanCliente.actionMenuNuevoCliente()}" />
+			
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
@@ -32,12 +31,12 @@
 	</h:form>
 	<p:panel>
 		<h:form>
-			<p:dataTable value="#{beanCliente.listaCliente}" var="c"
+			<p:dataTable value="#{beanClienteApi.listaClientesApi}" var="c"
 				paginator="true" rows="5">
 				<p:column headerText="ID">
 					<h:outputText value="#{c.idCliente}" />
 				</p:column>
-				<p:column headerText="NOMBRE" filterBy="#{c.nombreCliente}"
+				<p:column headerText="NOMBRES" filterBy="#{c.nombreCliente}"
 					filterMatchMode="contains">
 					<h:outputText value="#{c.nombreCliente}" />
 				</p:column>
@@ -45,40 +44,23 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{c.apellidoCliente}" />
 				</p:column>
-				<p:column headerText="TELÉFONO" filterBy="#{c.telf}"
-					filterMatchMode="contains">
-					<h:outputText value="#{c.telf}" />
-				</p:column>	
-				<p:column headerText="DIRECCIÓN" filterBy="#{c.dir}"
-					filterMatchMode="contains">
-					<h:outputText value="#{c.dir}" />
-				</p:column>	
-				<p:column headerText="CORREO" filterBy="#{c.correo}"
-					filterMatchMode="contains">
-					<h:outputText value="#{c.correo}" />
-				</p:column>		
+			
 				<p:column headerText="CÉDULA" filterBy="#{c.cedula}"
 					filterMatchMode="contains">
 					<h:outputText value="#{c.cedula}" />
-				</p:column>			
-				<p:column headerText="DEUDA INICIAL" filterBy="#{c.deudaIncial}"
-					filterMatchMode="contains">
-					<h:outputText value="#{c.deudaIncial}" />
 				</p:column>	
-				<p:column headerText="SALDO DEUDA" filterBy="#{c.saldoDeuda}"
+						
+					<p:column headerText="SALDO" filterBy="#{c.saldo}"
 					filterMatchMode="contains">
-					<h:outputText value="#{c.saldoDeuda}" />
+					<h:outputText value="#{c.saldo}" />
 				</p:column>	
-				<p:column headerText="OPCIONES">
-					<p:commandButton icon="pi pi-pencil" title="editar"
-						action="#{beanCliente.actionSeleccionarEdicionCliente(c)}" />
-					<p:commandButton icon="pi pi-times-circle" title="eliminar"
-						styleClass="ui-button-danger" update="@form"
-						actionListener="#{beanCliente.actionListenerEliminarCliente(c.idCliente)}">
-						<p:confirm header="Confirmación"
-							message="¿Desea borrar este cliente?" icon="pi pi-info-circle" />
-					</p:commandButton>
-				</p:column>
+				
+				<p:column headerText="VALOR LIMITE CREDITO" filterBy="#{c.valorLimiteCredito}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.valorLimiteCredito}" />
+				</p:column>	
+			
+				
 			</p:dataTable>
 		</h:form>
 	</p:panel>
